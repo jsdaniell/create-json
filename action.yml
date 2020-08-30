@@ -10,6 +10,7 @@ inputs:
     required: true
   dir:
     description: 'Optional subfolder directory to save the json file.'
+    required: false
 outputs:
   success:
     description: 'Feedback message of success.'

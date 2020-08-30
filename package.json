@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "ncc build index.js -o dist --source-map"
   },
   "repository": {
     "type": "git",
@@ -23,9 +22,7 @@
   },
   "homepage": "https://github.com/jsdaniell/create-json#readme",
   "dependencies": {
-    "@actions/core": "^1.2.5"
-  },
-  "devDependencies": {
-    "@vercel/ncc": "^0.24.0"
+    "@actions/core": "^1.2.3",
+    "@actions/github": "^2.1.1"
   }
 }

@@ -9,6 +9,8 @@ const fullPath = path.join(process.env.GITHUB_WORKSPACE, dir || "", fileName);
 
 const fileContent = jsonString;
 
+console.log('Running action')
+
 fs.writeFile(fullPath, fileContent, function (error) {
     if (error) {
         core.setFailed(error.message);

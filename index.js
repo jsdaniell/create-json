@@ -7,10 +7,10 @@ const jsonString = core.getInput('json-string');
 const dir = core.getInput('dir');
 const fullPath = path.join(process.env.GITHUB_WORKSPACE, dir || "", fileName);
 
-const fileContent = jsonString;
+const fileContent = JSON.stringify(jsonString);
 
 console.log('Running action')
-console.log(jsonString)
+console.log(fileContent)
 console.log(fileName)
 console.log(fullPath)
 

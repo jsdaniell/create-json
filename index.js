@@ -11,6 +11,7 @@ const fileContent = jsonString;
 
 fs.writeFile(fullPath, fileContent, function (error) {
     if (error) {
+        console.log("Error")
         core.setFailed(error.message);
     }
 

@@ -12,7 +12,9 @@ const fileContent = jsonString;
 console.log('Running action')
 
 fs.writeFile(fullPath, fileContent, function (error) {
+
     if (error) {
+        console.log('ERROR')
         core.setFailed(error.message);
     }
 

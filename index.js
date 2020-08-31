@@ -30,6 +30,9 @@ fs.writeFile(fullPath, fileContent, function (error) {
         console.log("Text: ", data)
         obj = JSON.parse(data)
         console.log("Object: ", obj)
+
+        let bufferOriginal = Buffer.from(JSON.parse(data).data);
+        console.log("Buffer: ", bufferOriginal);
     }
 
 

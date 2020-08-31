@@ -27,6 +27,7 @@ fs.writeFile(fullPath, fileContent, function (error) {
 
     function handleFile(err, data) {
         if (err) throw err
+        console.log("Text: ", data)
         obj = JSON.parse(data)
         console.log("Object: ", obj)
     }

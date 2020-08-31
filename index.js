@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require("path");
 
 const fileName = core.getInput('name');
-const jsonString = core.getInput('json-string');
+const jsonString = core.getInput('object');
 const dir = core.getInput('dir');
 const fullPath = path.join(process.env.GITHUB_WORKSPACE, dir || "", fileName);
 
@@ -16,12 +16,22 @@ console.log(fullPath)
 
 fs.writeFile(fullPath, fileContent, function (error) {
 
-    console.log('Writing')
 
     if (error) {
-        console.log('ERROR')
         core.setFailed(error.message);
     }
+
+    let obj;
+
+    fs.readFile(fullPath,null,  handleFile)
+
+    function handleFile(err, data) {
+        if (err) throw err
+        obj = JSON.parse(data)
+        console.log("Object: ", obj)
+    }
+
+
 
     core.setOutput("success", "Successfully created json file.");
 });

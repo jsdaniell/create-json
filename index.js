@@ -9,34 +9,32 @@ const fullPath = path.join(process.env.GITHUB_WORKSPACE, dir || "", fileName);
 
 const fileContent = JSON.stringify(jsonString);
 
-console.log('Running action')
-console.log(fileContent)
-console.log(fileName)
-console.log(fullPath)
+try {
+    core.info('Creating json file...')
 
-fs.writeFile(fullPath, fileContent, function (error) {
+    fs.writeFile(fullPath, fileContent, function (error) {
 
 
-    if (error) {
-        core.setFailed(error.message);
-    }
+        if (error) {
+            core.setFailed(error.message);
+            throw error
+        }
 
-    let obj;
+        core.info('JSON file created.')
 
-    fs.readFile(fullPath,null,  handleFile)
+        fs.readFile(fullPath, null, handleFile)
 
-    function handleFile(err, data) {
-        if (err) throw err
-        console.log("Text: ", data)
-        obj = JSON.parse(data)
-        console.log("Object: ", obj)
+        function handleFile(err, data) {
+            if (err) {
+                core.setFailed(error.message)
+                throw err
+            }
 
-        console.log("Buffer: ", data.toString());
-    }
+            core.info('JSON checked.')
 
-
-
-    core.setOutput("success", "Successfully created json file.");
-});
-
-console.log('End')
+            core.setOutput("successfully", `Successfully created json on ${fullPath} directory with ${fileContent} data`);
+        }
+    });
+} catch (err) {
+    core.setFailed(err.message);
+}

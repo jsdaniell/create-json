@@ -12,7 +12,7 @@ inputs:
     description: 'Optional subfolder directory to save the json file.'
     required: false
 outputs:
-  success:
+  successfully:
     description: 'Feedback message of success.'
 runs:
   using: 'node12'

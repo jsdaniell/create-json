@@ -14,7 +14,9 @@ fileContent = JSON.parse(fileContent)
 try {
     core.info('Creating json file...')
 
-    fs.writeFile(fullPath, fileContent, async function (error) {
+    fs.writeFile(fullPath, fileContent, function (error) {
+
+
         if (error) {
             core.setFailed(error.message);
             throw error
@@ -22,7 +24,7 @@ try {
 
         core.info('JSON file created.')
 
-        await fs.readFile(fullPath, null, handleFile)
+        fs.readFile(fullPath, null, handleFile)
 
         function handleFile(err, data) {
             if (err) {

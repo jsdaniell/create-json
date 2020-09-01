@@ -1,6 +1,6 @@
 {
   "name": "create-json",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "An Action to create .json file and use on others steps of actions in your workflow.",
   "main": "index.js",
   "scripts": {

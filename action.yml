@@ -5,7 +5,7 @@ inputs:
   name:
     description: 'The name of the file to be written. | file.json '
     required: true
-  object:
+  json:
     description: 'The json string that can be a secret of the github repo or a string of a json. | "{"title": "my json"}" '
     required: true
   dir:

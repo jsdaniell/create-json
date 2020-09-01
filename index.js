@@ -1,29 +1,49 @@
 const core = require('@actions/core');
 const fs = require('fs');
 const path = require("path");
+const exec = require('@actions/exec');
 
 const fileName = core.getInput('name');
-const jsonString = core.getInput('json-string');
+const jsonString = core.getInput('object');
 const dir = core.getInput('dir');
+const autoCommit = core.getInput('auto-commit') || true;
 const fullPath = path.join(process.env.GITHUB_WORKSPACE, dir || "", fileName);
 
-const fileContent = jsonString;
+let fileContent = JSON.stringify(jsonString);
 
-console.log('Running action')
-console.log(jsonString)
-console.log(fileName)
-console.log(fullPath)
+fileContent = JSON.parse(fileContent)
 
-fs.writeFile(fullPath, fileContent, function (error) {
+try {
+    core.info('Creating json file...')
 
-    console.log('Writing')
+    fs.writeFile(fullPath, fileContent, async function (error) {
+        if (error) {
+            core.setFailed(error.message);
+            throw error
+        }
 
-    if (error) {
-        console.log('ERROR')
-        core.setFailed(error.message);
-    }
+        core.info('JSON file created.')
 
-    core.setOutput("success", "Successfully created json file.");
-});
+        await fs.readFile(fullPath, null, handleFile)
 
-console.log('End')
+        if(autoCommit){
+            await exec.exec('git add . && git commit -a -m "json file commited');
+        }
+
+        function handleFile(err, data) {
+            if (err) {
+                core.setFailed(error.message)
+                throw err
+            }
+
+            core.info('JSON checked.')
+
+
+
+
+            core.setOutput("successfully", `Successfully created json on ${fullPath} directory with ${fileContent} data`);
+        }
+    });
+} catch (err) {
+    core.setFailed(err.message);
+}

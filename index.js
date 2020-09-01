@@ -7,21 +7,20 @@ const jsonString = core.getInput('object');
 const dir = core.getInput('dir');
 const fullPath = path.join(process.env.GITHUB_WORKSPACE, dir || "", fileName);
 
-const fileContent = JSON.stringify(jsonString)
-    .replace(/^ +/gm, '')
-    .replace(/: "(?:[^"]+|\\")*",?$/gm, ' $&');
+let fileContent = JSON.stringify(jsonString);
+
+fileContent = JSON.parse(fileContent)
 
 try {
     core.info('Creating json file...')
-    console.log('cont: ', jsonString)
 
-    fs.writeFile(fullPath, jsonString, function (error) {
+    fs.writeFile(fullPath, fileContent, function (error) {
+
 
         if (error) {
             core.setFailed(error.message);
             throw error
         }
-
 
         core.info('JSON file created.')
 
@@ -35,7 +34,7 @@ try {
 
             core.info('JSON checked.')
 
-            core.setOutput("successfully", `Successfully created json on ${fullPath} directory with ${jsonString} data`);
+            core.setOutput("successfully", `Successfully created json on ${fullPath} directory with ${fileContent} data`);
         }
     });
 } catch (err) {

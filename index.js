@@ -13,9 +13,7 @@ fileContent = JSON.parse(fileContent)
 
 try {
     core.info('Creating json file...')
-
     fs.writeFile(fullPath, fileContent, function (error) {
-
 
         if (error) {
             core.setFailed(error.message);
@@ -33,7 +31,6 @@ try {
             }
 
             core.info('JSON checked.')
-
             core.setOutput("successfully", `Successfully created json on ${fullPath} directory with ${fileContent} data`);
         }
     });

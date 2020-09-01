@@ -13,15 +13,15 @@ const fileContent = JSON.stringify(jsonString)
 
 try {
     core.info('Creating json file...')
-    console.log('cont: ', fileContent)
+    console.log('cont: ', jsonString)
 
-    fs.writeFile(fullPath, fileContent, function (error) {
-
+    fs.writeFile(fullPath, jsonString, function (error) {
 
         if (error) {
             core.setFailed(error.message);
             throw error
         }
+
 
         core.info('JSON file created.')
 
@@ -35,7 +35,7 @@ try {
 
             core.info('JSON checked.')
 
-            core.setOutput("successfully", `Successfully created json on ${fullPath} directory with ${fileContent} data`);
+            core.setOutput("successfully", `Successfully created json on ${fullPath} directory with ${jsonString} data`);
         }
     });
 } catch (err) {

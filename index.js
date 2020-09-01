@@ -7,10 +7,13 @@ const jsonString = core.getInput('object');
 const dir = core.getInput('dir');
 const fullPath = path.join(process.env.GITHUB_WORKSPACE, dir || "", fileName);
 
-const fileContent = JSON.stringify(jsonString);
+const fileContent = JSON.stringify(jsonString)
+    .replace(/^ +/gm, '')
+    .replace(/: "(?:[^"]+|\\")*",?$/gm, ' $&');
 
 try {
     core.info('Creating json file...')
+    console.log('cont: ', fileContent)
 
     fs.writeFile(fullPath, fileContent, function (error) {
 

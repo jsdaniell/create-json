@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require("path");
 
 const fileName = core.getInput('name');
-const jsonString = core.getInput('object');
+const jsonString = core.getInput('json');
 const dir = core.getInput('dir');
 const fullPath = path.join(process.env.GITHUB_WORKSPACE, dir || "", fileName);
 

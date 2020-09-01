@@ -1,9 +1,10 @@
 
-
 <p align="center">
 <img src="https://user-images.githubusercontent.com/44711197/91856090-74cce780-ec3c-11ea-86a4-2f0a23deabaf.png" />
     <p align="center"><b>Create a .json file dynamically on your workflow </b></p>
 </p>
+
+***
 
 Example of the output on the .json file created:
 

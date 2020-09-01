@@ -1,10 +1,12 @@
 const core = require('@actions/core');
 const fs = require('fs');
 const path = require("path");
+const exec = require('@actions/exec');
 
 const fileName = core.getInput('name');
 const jsonString = core.getInput('object');
 const dir = core.getInput('dir');
+const autoCommit = core.getInput('auto-commit') || true;
 const fullPath = path.join(process.env.GITHUB_WORKSPACE, dir || "", fileName);
 
 let fileContent = JSON.stringify(jsonString);
@@ -14,9 +16,7 @@ fileContent = JSON.parse(fileContent)
 try {
     core.info('Creating json file...')
 
-    fs.writeFile(fullPath, fileContent, function (error) {
-
-
+    fs.writeFile(fullPath, fileContent, async function (error) {
         if (error) {
             core.setFailed(error.message);
             throw error
@@ -24,7 +24,11 @@ try {
 
         core.info('JSON file created.')
 
-        fs.readFile(fullPath, null, handleFile)
+        await fs.readFile(fullPath, null, handleFile)
+
+        if(autoCommit){
+            await exec.exec('git add . && git commit -a -m "json file commited');
+        }
 
         function handleFile(err, data) {
             if (err) {
@@ -33,6 +37,9 @@ try {
             }
 
             core.info('JSON checked.')
+
+
+
 
             core.setOutput("successfully", `Successfully created json on ${fullPath} directory with ${fileContent} data`);
         }

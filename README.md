@@ -83,6 +83,42 @@ If you want to create more than one json files, you have to specify different ID
         dir: 'src/'
 ```
 
+### Real Example (Creating and Using on Other Steps)
+
+```yaml
+name: Heroku CI - CD
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-go@v1
+        with:
+          go-version: '1.14.6'
+      - run: cd src && go mod vendor
+      - name: create-json
+        id: create-json
+        uses: jsdaniell/create-json@1.1.2
+        with:
+          name: "devdatatools-firebase-adminsdk.json"
+          json: ${{ secrets.CREDENTIALS_JSON }}
+          dir: "src/"
+      - run: git config --global user.email "jose.daniell@outlook.com" && git config --global user.name "jsdaniell" && git add . && git add --force src/devdatatools-firebase-adminsdk.json && git status && git commit -a -m "Deploy Heroku Commit with the Credentials JSON created!"
+      - uses: akhileshns/heroku-deploy@v3.4.6
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: "dev-data-tools-api-golang"
+          heroku_email: "jose.daniell@outlook.com"
+          appdir: "src"
+```
+
+After commit and use with Heroku the file is deleted after the workflow and the JSON is not showed on the log, perfect for public repositories.
+
 ### Contribute
 
 You can submit an issue or PR anytime for the improvement this action!

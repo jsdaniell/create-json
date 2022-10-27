@@ -15,8 +15,8 @@ outputs:
   successfully:
     description: 'Feedback message of success '
 runs:
-  using: 'node12'
-  main: 'index.js'
+  using: "node16"
+  main: "./dist/index.js"
 branding:
   icon: 'file-text'
   color: 'purple'

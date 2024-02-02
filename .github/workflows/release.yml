@@ -7,6 +7,12 @@ jobs:
   test-action:
     runs-on: ubuntu-latest
     steps:
+      - name: create-json
+        id: create-json
+        uses: jsdaniell/create-json@v1.2.3
+        with:
+          name: "test.json"
+        json: '{"name":"@createjson"}'
       - uses: actions/checkout@v3
       - run: sh ./test-json.sh
   publish:

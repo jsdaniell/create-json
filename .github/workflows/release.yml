@@ -13,7 +13,7 @@ jobs:
         uses: jsdaniell/create-json@v1.2.3
         with:
           name: "test.json"
-          json: '{"name":"@createjson"}'
+          json: '{"name":"json sucessfully created!"}'
       - run: sh ./test-json.sh
   publish:
     needs: [test-action]

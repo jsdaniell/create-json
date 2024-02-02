@@ -32,7 +32,7 @@ and use in this way:
 ```yaml
     - name: create-json
       id: create-json
-      uses: jsdaniell/create-json@v1.2.2
+      uses: jsdaniell/create-json@v1.2.3
       with:
         name: "credentials.json"
         json: ${{ secrets.MY_JSON }}
@@ -43,7 +43,7 @@ Or just declare a string of a json on the property `json` like:
 ```yaml
     - name: create-json
       id: create-json
-      uses: jsdaniell/create-json@v1.2.2
+      uses: jsdaniell/create-json@v1.2.3
       with:
         name: "new-json-file.json"
         json: '{"name":"jsdaniell", "password":"mypass"}'
@@ -55,7 +55,7 @@ You also can save the json on a subdirectory using the property `dir`:
 ```yaml
     - name: create-json
       id: create-json
-      uses: jsdaniell/create-json@v1.2.2
+      uses: jsdaniell/create-json@v1.2.3
       with:
         name: "credentials.json"
         json: ${{ secrets.CREDENTIALS_JSON }}
@@ -69,14 +69,14 @@ If you want to create more than one json files, you have to specify different ID
 ```yaml
     - name: create-json
       id: create-json-1 # First ID
-      uses: jsdaniell/create-json@v1.2.2
+      uses: jsdaniell/create-json@v1.2.3
       with:
         name: "credentials.json"
         json: ${{ secrets.CREDENTIALS_JSON }}
         dir: 'src/'
     - name: create-json
       id: create-json-2  # Second ID
-      uses: jsdaniell/create-json@v1.2.2
+      uses: jsdaniell/create-json@v1.2.3
       with:
         name: "other.json"
         json: '{"name":"jsdaniell", "password":"mypass"}'
@@ -103,7 +103,7 @@ jobs:
       - run: cd src && go mod vendor
       - name: create-json
         id: create-json
-        uses: jsdaniell/create-json@v1.2.2
+        uses: jsdaniell/create-json@v1.2.3
         with:
           name: "devdatatools-firebase-adminsdk.json"
           json: ${{ secrets.CREDENTIALS_JSON }}
@@ -123,4 +123,4 @@ After commit and use with Heroku the file is deleted after the workflow and the 
 
 You can submit an issue or PR anytime for the improvement this action!
 
-Version v1.2.2 (Node 16)
+Version v1.2.3 (Node 20)

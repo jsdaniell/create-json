@@ -1,0 +1,24 @@
+name: "Publish GitHub Action"
+on:
+  push:
+    branches:
+      - master
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: create-json
+        id: create-json
+        uses: jsdaniell/create-json@v1.2.3
+        with:
+          name: "test.json"
+          json: '{"name":"jsdaniell", "password":"mypass"}'
+      - name: assert-json-exists
+        run: |
+          if [ ! -f "test.json" ]; then
+            echo "JSON file not found."
+            exit 1  # Fail the workflow if the file is not found
+          fi
+      - name: validate-json-structure
+        run: |
+          cat test.json | jq empty

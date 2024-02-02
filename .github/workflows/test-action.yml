@@ -14,5 +14,5 @@ jobs:
           name: "test.json"
           json: '{"name":"jsdaniell", "password":"mypass"}'
       - name: assert-json-exists
-        run: "sh test-json.sh"
+        run: "./test-json.sh"
         

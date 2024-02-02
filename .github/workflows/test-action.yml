@@ -1,4 +1,4 @@
-name: "Publish GitHub Action"
+name: "Test GitHub Action"
 on:
   push:
     branches:

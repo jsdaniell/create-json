@@ -1,8 +1,9 @@
-name: "Publish GitHub Action"
+name: "Test GitHub Action"
 on:
   push:
     branches:
       - master
+  pull_request:
 jobs:
   test-action:
     runs-on: ubuntu-latest
@@ -10,16 +11,8 @@ jobs:
       - uses: actions/checkout@v6
       - name: create-json
         id: create-json
-        uses: jsdaniell/create-json@v1.2.4
+        uses: ./
         with:
           name: "test.json"
           json: '{"name":"json successfully created!"}'
       - run: sh ./test-json.sh
-  publish:
-    needs: [test-action]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-      - uses: TG908/publish-github-action@v1
-        with:
-          github_token: ${{ secrets.TOKEN }}
